@@ -21,7 +21,7 @@ export default function FeatureCatalog({ features }: Props) {
   return (
     <div className="w-full">
       {/* ── Filter pills ── */}
-      <div className="border-b border-white/6">
+      {/* <div className="border-b border-white/6">
         <div className="w-full max-w-7xl mx-auto px-8 pb-5 pt-6">
           <div className="flex flex-wrap gap-2">
             {PILLS.map((pill) => {
@@ -43,12 +43,12 @@ export default function FeatureCatalog({ features }: Props) {
             })}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* ── Cards grid ── */}
       <div className="w-full max-w-7xl mx-auto px-8 py-8">
         {visible.length === 0 ? (
-          <p className="py-20 text-center text-sm text-white/30">
+          <p className="py-20 text-center text-sm text-slate-400">
             No features in this category yet.
           </p>
         ) : (
