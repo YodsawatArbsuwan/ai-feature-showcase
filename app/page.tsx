@@ -1,12 +1,16 @@
+"use client";
+
+import { useState } from "react";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import FeatureCatalog from "@/components/common/feature-catalog/FeatureCatalog";
 import ScrollToTop from "@/components/common/scroll-to-top/ScrollToTop";
-import { featuredFeatures } from "@/config/features";
 import { siteConfig } from "@/config/site";
 
 export default function HomePage() {
+  const [search, setSearch] = useState("");
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <Header />
@@ -35,7 +39,9 @@ export default function HomePage() {
               </span>
               <input
                 type="text"
-                placeholder="Find your perfect tool &amp; prompt"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="ค้นหา category..."
                 className="flex-1 bg-transparent px-3 py-3.5 text-sm text-slate-700 placeholder-slate-400 outline-none"
               />
               <div className="flex shrink-0 items-center">
@@ -50,8 +56,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Filter pills + card grid */}
-        <FeatureCatalog features={featuredFeatures} />
+        {/* Category grid */}
+        <FeatureCatalog search={search} />
       </main>
 
       {/* Footer */}

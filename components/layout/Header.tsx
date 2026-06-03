@@ -27,7 +27,7 @@ export default function Header() {
             rel="noopener noreferrer"
             className="px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-brand-navy"
           >
-            AI Features
+            AI Solution
           </Link>
         </nav>
 
