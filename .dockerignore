@@ -1,0 +1,55 @@
+# Dependencies
+node_modules
+**/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+.next
+dist
+
+# Test files
+**/*.spec.ts
+**/*.test.ts
+coverage
+
+# Environment files — allow only .env (build-time vars) and .env.example
+.env.*
+.env.local
+.env.*.local
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Version control
+.git
+**/.git
+.gitignore
+
+# Documentation
+README.md
+*.md
+docs
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.gitlab-ci-dev
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Local development
+.local
+.husky
+
+# Generated (will be regenerated during build)
+generated

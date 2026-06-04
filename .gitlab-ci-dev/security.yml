@@ -1,0 +1,51 @@
+trivy_security_scan:
+  stage: security
+  image:
+    name: aquasec/trivy:0.50.1
+    entrypoint: ['']
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /^(main|security-scan)$/
+      when: on_success
+  cache:
+    policy: pull-push
+    key: 'trivy-cache-$CI_COMMIT_REF_SLUG'
+    paths:
+      - /root/.cache/trivy
+  script:
+    - echo "=== Running Trivy Full Filesystem Scan ==="
+    - trivy fs . --severity HIGH,CRITICAL --scanners vuln,secret,misconfig --no-progress --exit-code 1 | tee trivy-report.txt
+  allow_failure: true
+  artifacts:
+    when: always
+    name: 'trivy-report-$CI_COMMIT_SHORT_SHA'
+    paths:
+      - trivy-report.txt
+
+sonarqube_quality_scan:
+  stage: security
+  image:
+    name: sonarsource/sonar-scanner-cli:11
+    entrypoint: ['']
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /^(main|security-scan)$/
+      when: on_success
+  variables:
+    SONAR_USER_HOME: '${CI_PROJECT_DIR}/.sonar'
+    GIT_DEPTH: '0'
+  cache:
+    policy: pull-push
+    key: 'sonar-cache-$CI_COMMIT_REF_SLUG'
+    paths:
+      - '${SONAR_USER_HOME}/cache'
+      - sonar-scanner/
+  script:
+    - echo "=== Running SonarQube Quality Scan ==="
+    - sonar-scanner
+      -Dsonar.host.url=${SONAR_HOST_URL}
+      -Dsonar.token=${SONAR_TOKEN}
+  allow_failure: true
+  artifacts:
+    when: on_success
+    name: 'sonarqube-report-$CI_COMMIT_SHORT_SHA'
+    paths:
+      - .scannerwork/report-task.txt

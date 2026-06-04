@@ -1,0 +1,17 @@
+include:
+  - local: .gitlab-ci-dev/template.yml
+  - local: .gitlab-ci-dev/build.yml
+  - local: .gitlab-ci-dev/security.yml
+  - local: .gitlab-ci-dev/deploy.yml
+
+stages:
+  - build
+  - security
+  - deploy
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_BUILDKIT: "1"
+  BUILDKIT_PROGRESS: plain
+  DOCKER_DRIVER: overlay2
+  DOCKER_NETWORK_NAME: ai-showcase-network

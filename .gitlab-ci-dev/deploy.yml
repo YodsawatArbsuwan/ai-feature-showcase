@@ -1,0 +1,21 @@
+deploy-dev-vm:
+  extends: .deploy-template
+  stage: deploy
+  variables:
+    SERVER_HOST: $DEV_VM_IPADDRESS
+    SERVER_USER: $DEV_VM_USER
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  needs:
+    - build-app
+  script:
+    - export DOCKER_HOST="ssh://$SERVER_USER@$SERVER_HOST"
+    - echo "Connected to Docker Host:"
+    - docker info
+    - docker network create $DOCKER_NETWORK_NAME 2>/dev/null || true
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - export APP_IMAGE=$CI_REGISTRY_IMAGE/app:$CI_COMMIT_SHORT_SHA
+    - docker compose -f docker-compose.yml pull
+    - docker compose -f docker-compose.yml -p dev_ai_showcase up -d --remove-orphans
+    - echo 'Cleaning up old images...'
+    - docker image prune -af --filter "until=72h"

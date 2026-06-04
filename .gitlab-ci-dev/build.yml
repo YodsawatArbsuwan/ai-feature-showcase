@@ -1,0 +1,17 @@
+build-app:
+  extends: .build-template
+  variables:
+    ENV_FILE: $ENV_FILE_DEV
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+  script:
+    - |
+      docker build \
+        --build-arg BUILDKIT_INLINE_CACHE=1 \
+        --cache-from $CI_REGISTRY_IMAGE/app:$CI_COMMIT_SHORT_SHA \
+        -t $CI_REGISTRY_IMAGE/app:$CI_COMMIT_SHORT_SHA \
+        -f Dockerfile .
+    - docker push $CI_REGISTRY_IMAGE/app:$CI_COMMIT_SHORT_SHA

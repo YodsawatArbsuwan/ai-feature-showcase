@@ -1,0 +1,24 @@
+.build-template:
+  stage: build
+  image: docker:24-dind
+  services:
+    - name: docker:24-dind
+      command: ["--registry-mirror=https://mirror.gcr.io"]
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - |
+      if [ -n "$ENV_FILE" ]; then
+        cp $ENV_FILE .env
+      else
+        echo "⚠️ ENV_FILE variable is not set. Using existing .env or relying on environment variables."
+      fi
+
+.deploy-template:
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache openssh-client docker-cli docker-cli-compose curl
+    - eval $(ssh-agent -s)
+    - echo "$DEV_SSH_PRIVATE_KEY" | tr -d '\r' > ssh_key && chmod 600 ssh_key && ssh-add ssh_key
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts
