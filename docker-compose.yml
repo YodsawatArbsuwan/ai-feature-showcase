@@ -4,10 +4,6 @@ services:
     restart: always
     ports:
       - "3011:3011"
-    environment:
-      - NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
-      - NEXT_PUBLIC_APP_NAME=${NEXT_PUBLIC_APP_NAME:-"AI Feature Showcase"}
-      - NEXT_PUBLIC_AUTH_ENABLED=${NEXT_PUBLIC_AUTH_ENABLED:-false}
     networks:
       - ai-showcase-network
 

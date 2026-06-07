@@ -1,0 +1,11 @@
+severity:
+  - HIGH
+  - CRITICAL
+
+scanners:
+  - vuln
+  - secret
+  - misconfig
+  - license
+
+exit-code: 1

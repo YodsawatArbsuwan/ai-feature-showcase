@@ -4,6 +4,24 @@ export type ClientOptions = {
     baseUrl: string;
 };
 
+export type AssetDto = {
+    uuid: string;
+    name: string;
+    originalName: string;
+    mimeType: string;
+    size: number;
+    width?: number;
+    height?: number;
+    storageProvider: string;
+    storagePath: string;
+    isPersisted: boolean;
+    isEncrypted: boolean;
+    ownerModule: string;
+    fileCategory: string;
+    createdBy?: string;
+    createdAt: string;
+};
+
 export type CreateContactDto = {
     name: string;
     phone: string;
@@ -86,6 +104,42 @@ export type UpdateProjectCategoryDto = {
     description?: string;
     isActive?: boolean;
     assetStoreUuid?: string;
+};
+
+export type AssetControllerUploadData = {
+    body: {
+        ownerModule: string;
+        fileCategory: string;
+    } & {
+        file: Blob | File;
+    };
+    path?: never;
+    query?: never;
+    url: '/v1/assets';
+};
+
+export type AssetControllerUploadResponses = {
+    201: AssetDto;
+};
+
+export type AssetControllerUploadResponse = AssetControllerUploadResponses[keyof AssetControllerUploadResponses];
+
+export type AssetControllerDownloadData = {
+    body?: never;
+    path: {
+        uuid: string;
+    };
+    query: {
+        download: string;
+    };
+    url: '/v1/assets/{uuid}/download';
+};
+
+export type AssetControllerDownloadResponses = {
+    /**
+     * ไฟล์ binary
+     */
+    200: unknown;
 };
 
 export type ContactControllerFindAllData = {

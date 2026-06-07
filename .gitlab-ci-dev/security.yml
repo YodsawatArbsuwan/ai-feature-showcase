@@ -6,6 +6,8 @@ trivy_security_scan:
   rules:
     - if: $CI_COMMIT_BRANCH =~ /^(main|security-scan)$/
       when: on_success
+    - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+(-[a-zA-Z0-9]+)?$/'
+      when: on_success
   cache:
     policy: pull-push
     key: 'trivy-cache-$CI_COMMIT_REF_SLUG'
@@ -13,7 +15,7 @@ trivy_security_scan:
       - /root/.cache/trivy
   script:
     - echo "=== Running Trivy Full Filesystem Scan ==="
-    - trivy fs . --severity HIGH,CRITICAL --scanners vuln,secret,misconfig --no-progress --exit-code 1 | tee trivy-report.txt
+    - trivy fs . --config trivy.yaml --ignorefile .trivyignore --severity HIGH,CRITICAL --scanners vuln,secret,misconfig,license --no-progress --exit-code 1 | tee trivy-report.txt
   allow_failure: true
   artifacts:
     when: always

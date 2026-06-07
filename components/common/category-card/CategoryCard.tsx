@@ -1,5 +1,6 @@
 import type { ProjectCategoryDto } from "@/generated/api/types.gen";
 import Link from "next/link";
+import AssetImage from "@/components/common/asset-image/AssetImage";
 
 type Props = { category: ProjectCategoryDto };
 
@@ -13,11 +14,15 @@ export default function CategoryCard({ category }: Props) {
 
         {/* ── Preview ── */}
         <div className="relative h-52 overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Artificial_Intelligence_%26_AI_%26_Machine_Learning_-_30212411048.jpg/1280px-Artificial_Intelligence_%26_AI_%26_Machine_Learning_-_30212411048.jpg"
+          <AssetImage
+            uuid={category.assetStoreUuid}
             alt={category.name}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fallback={
+              <div className="flex h-full items-center justify-center bg-linear-to-br from-brand-tint via-[#d5e9f8] to-brand-tint">
+                <span className="text-6xl select-none">🤖</span>
+              </div>
+            }
           />
           <div className="absolute bottom-0 left-0 right-0 h-10 bg-linear-to-t from-white to-transparent" />
         </div>

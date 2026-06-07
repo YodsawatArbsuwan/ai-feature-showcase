@@ -2,14 +2,23 @@
 
 import { useCategories } from "@/features/categories/hooks/categories.hook";
 import CategoryCard from "@/components/common/category-card/CategoryCard";
+import type { FeatureCategory } from "@/types/feature";
 
-type Props = { search?: string };
+type Props = {
+  search?: string;
+  category?: FeatureCategory;
+};
 
-export default function FeatureCatalog({ search = "" }: Props) {
+export default function FeatureCatalog({ search = "", category }: Props) {
   const { data: categories, isLoading, isError } = useCategories();
 
   const visible = categories
     ?.filter((c) => c.isActive)
+    .filter((c) =>
+      category
+        ? c.name.toLowerCase() === category.toLowerCase()
+        : true
+    )
     .filter((c) =>
       search.trim() === ""
         ? true

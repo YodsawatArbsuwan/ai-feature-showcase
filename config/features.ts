@@ -15,6 +15,39 @@ export const features: FeatureMeta[] = [
       "Multilingual support across 30+ languages.",
       "Adjustable summary length from one sentence to several paragraphs.",
     ],
+    architecturalTags: ["Transformers", "Zero-Shot Sum", "Attention Maps"],
+    technicalSpecs: {
+      avgLatency: "~150ms",
+      systemAccuracy: "98.6%",
+      activeModel: "LarnGear-Summarize-v2",
+    },
+    quickIntegration: `import { LarnGear } from '@larngear/lgp';
+
+const agent = new LarnGear();
+const summary = await agent.summarize([
+  const textDoc.getText.Doc
+]);
+format: TextSet`,
+    references: [
+      {
+        title: "LearnGear By Larngear LMS",
+        description: "Premium daily news compactor converting 50+ international newspapers into a 3-minute brief.",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Artificial_Intelligence_%26_AI_%26_Machine_Learning_-_30212411048.jpg/1280px-Artificial_Intelligence_%26_AI_%26_Machine_Learning_-_30212411048.jpg",
+        activTokens: "142k+",
+      },
+      {
+        title: "LearnGear By Larngear LMS",
+        description: "Premium daily news compactor converting 50+ international newspapers into a 3-minute brief.",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Artificial_Intelligence_%26_AI_%26_Machine_Learning_-_30212411048.jpg/1280px-Artificial_Intelligence_%26_AI_%26_Machine_Learning_-_30212411048.jpg",
+        activTokens: "143k+",
+      },
+      {
+        title: "LearnGear By Larngear LMS",
+        description: "Premium daily news compactor converting 50+ international newspapers into a 3-minute brief.",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Artificial_Intelligence_%26_AI_%26_Machine_Learning_-_30212411048.jpg/1280px-Artificial_Intelligence_%26_AI_%26_Machine_Learning_-_30212411048.jpg",
+        activTokens: "142k+",
+      },
+    ],
   },
   {
     slug: "sentiment-analysis",

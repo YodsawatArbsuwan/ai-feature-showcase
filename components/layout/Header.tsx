@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { Home, Search, Sparkles } from "lucide-react";
 import Logo from "@/components/common/logo/Logo";
 
 export default function Header() {
@@ -17,16 +17,16 @@ export default function Header() {
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 sm:flex">
           <Link
             href="/"
-            className="px-3 py-1.5 text-sm font-medium text-brand transition-colors hover:text-brand-navy"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-brand transition-colors hover:text-brand-navy"
           >
+            <Home className="h-4 w-4" />
             Home
           </Link>
           <Link
-            href="https://showcase-portal.larngeartech.com/th"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-brand-navy"
+            href="https://showcase-portal.larngeartech.com/en"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-brand-navy"
           >
+            <Sparkles className="h-4 w-4" />
             AI Solution
           </Link>
         </nav>

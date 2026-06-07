@@ -16,6 +16,8 @@ deploy-dev-vm:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
     - export APP_IMAGE=$CI_REGISTRY_IMAGE/app:$CI_COMMIT_SHORT_SHA
     - docker compose -f docker-compose.yml pull
-    - docker compose -f docker-compose.yml -p dev_ai_showcase up -d --remove-orphans
+    - docker compose -f docker-compose.yml -p dev_ai_showcase down --remove-orphans
+    - docker ps -q --filter "publish=3011" | xargs -r docker stop
+    - docker compose -f docker-compose.yml -p dev_ai_showcase up -d
     - echo 'Cleaning up old images...'
     - docker image prune -af --filter "until=72h"
