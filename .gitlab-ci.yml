@@ -14,4 +14,4 @@ variables:
   DOCKER_BUILDKIT: "1"
   BUILDKIT_PROGRESS: plain
   DOCKER_DRIVER: overlay2
-  DOCKER_NETWORK_NAME: ai-showcase-network
+  DOCKER_NETWORK_NAME: showcase-frontend-network

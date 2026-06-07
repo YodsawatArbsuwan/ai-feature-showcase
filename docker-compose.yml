@@ -1,12 +1,12 @@
 services:
   app:
-    image: ${APP_IMAGE:-ai-feature-showcase:latest}
+    image: ${APP_IMAGE:-showcase-frontend:latest}
     restart: always
     ports:
       - "3011:3011"
     networks:
-      - ai-showcase-network
+      - showcase-frontend-network
 
 networks:
-  ai-showcase-network:
+  showcase-frontend-network:
     external: true
